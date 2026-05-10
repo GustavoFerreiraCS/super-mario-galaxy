@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design System · Super Mario Galaxy</title>
+    <meta name="description" content="Apresentação visual do Design System Super Mario Galaxy: tokens, paleta, tipografia, componentes e movimento.">
+
+    <link rel="stylesheet" href="css/design-system.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <canvas id="ds-starfield" aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#main">Pular para conteúdo</a>
+
+    <header class="ds-header">
+        <nav class="ds-nav" aria-label="Navegação do design system">
+            <a href="#topo" class="ds-brand">
+                <span class="ds-brand-mark" aria-hidden="true">★</span>
+                <span class="ds-brand-text">SMG · DS</span>
+            </a>
+            <ul class="ds-nav-links">
+                <li><a href="#atmosfera">01 Atmosfera</a></li>
+                <li><a href="#paleta">02 Paleta</a></li>
+                <li><a href="#tipografia">03 Tipografia</a></li>
+                <li><a href="#componentes">04 Componentes</a></li>
+                <li><a href="#layout">05 Layout</a></li>
+                <li><a href="#movimento">06 Movimento</a></li>
+                <li><a href="#anti">07 Anti-patterns</a></li>
+                <li><a href="#tokens">08 Tokens</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main">
+
+        <!-- HERO -->
+        <section id="topo" class="ds-hero" aria-labelledby="hero-title">
+            <span class="ds-eyebrow" data-reveal>Design System · v1.0 · 2026</span>
+            <h1 id="hero-title" class="ds-hero-title" data-reveal data-reveal-delay="80">
+                Super Mario<br>
+                <span class="ds-hero-accent">Galaxy</span>
+            </h1>
+            <p class="ds-hero-sub" data-reveal data-reveal-delay="160">
+                Sistema cinematográfico com atmosfera cósmica, contraste alto e brilho controlado.
+                Acentos estelares orientam foco narrativo e ação sobre fundo profundo.
+            </p>
+            <div class="ds-hero-cta" data-reveal data-reveal-delay="240">
+                <a href="#paleta" class="ds-btn ds-btn-primary">Explorar tokens</a>
+                <a href="#movimento" class="ds-btn ds-btn-secondary">Ver movimento</a>
+            </div>
+
+            <ul class="ds-hero-meta" data-reveal data-reveal-delay="320">
+                <li>
+                    <span class="meta-key">Density</span>
+                    <span class="meta-val">5<i>/10</i></span>
+                </li>
+                <li>
+                    <span class="meta-key">Variance</span>
+                    <span class="meta-val">6<i>/10</i></span>
+                </li>
+                <li>
+                    <span class="meta-key">Motion</span>
+                    <span class="meta-val">6<i>/10</i></span>
+                </li>
+            </ul>
+
+            <div class="ds-scroll-cue" aria-hidden="true">
+                <span>SCROLL</span>
+                <span class="ds-scroll-line"></span>
+            </div>
+        </section>
+
+        <!-- 01 ATMOSFERA -->
+        <section id="atmosfera" class="ds-section" aria-labelledby="atm-title">
+            <header class="ds-section-head" data-reveal>
+                <span class="ds-num">01</span>
+                <h2 id="atm-title" class="ds-section-title">Tema visual & atmosfera</h2>
+                <p class="ds-lede">
+                    Interface prioriza legibilidade em fundo profundo. Assimetria moderada em hero
+                    e blocos editoriais. Microinterações contínuas e discretas.
+                </p>
+            </header>
+
+            <div class="meters">
+                <article class="meter" data-reveal data-reveal-delay="0" style="--fill: 50%;">
+                    <header>
+                        <h3>Density</h3>
+                        <span class="meter-score">5<i>/10</i></span>
+                    </header>
+                    <div class="meter-track"><span class="meter-fill"></span></div>
+                    <p>Equilibrado, sem poluição visual.</p>
+                </article>
+
+                <article class="meter" data-reveal data-reveal-delay="80" style="--fill: 60%;">
+                    <header>
+                        <h3>Variance</h3>
+                        <span class="meter-score">6<i>/10</i></span>
+                    </header>
+                    <div class="meter-track"><span class="meter-fill"></span></div>
+                    <p>Assimetria moderada em hero e blocos editoriais.</p>
+                </article>
+
+                <article class="meter" data-reveal data-reveal-delay="160" style="--fill: 60%;">
+                    <header>
+                        <h3>Motion</h3>
+                        <span class="meter-score">6<i>/10</i></span>
+                    </header>
+                    <div class="meter-track"><span class="meter-fill"></span></div>
+                    <p>Fluido, microinterações contínuas e discretas.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- 02 PALETA -->
+        <section id="paleta" class="ds-section" aria-labelledby="pal-title">
+            <header class="ds-section-head" data-reveal>
+                <span class="ds-num">02</span>
+                <h2 id="pal-title" class="ds-section-title">Paleta & papéis</h2>
+                <p class="ds-lede">
+                    Tokens oficiais. Cinzas fora da paleta são proibidos. Acentos estelares
+                    operam apenas sobre superfícies cósmicas. Clique no chip pra copiar.
+                </p>
+            </header>
+
+            <div class="palette">
+                <article class="swatch" data-reveal data-copy="#000000" style="--c: #000000;">
+                    <div class="swatch-chip"></div>
+                    <h3>Cosmic Deep</h3>
+                    <code>--bg-deep</code>
+                    <span class="swatch-hex">#000000</span>
+                    <p>Fundo base global.</p>
+                </article>
+
+                <article class="swatch" data-reveal data-reveal-delay="40" data-copy="#0a0a1a" style="--c: #0a0a1a;">
+                    <div class="swatch-chip"></div>
+                    <h3>Cosmic Mid</h3>
+                    <code>--bg-mid</code>
+                    <span class="swatch-hex">#0a0a1a</span>
+                    <p>Fundo intermediário de seções.</p>
+                </article>
+
+                <article class="swatch" data-reveal data-reveal-delay="80" data-copy="#141340" style="--c: #141340;">
+                    <div class="swatch-chip"></div>
+                    <h3>Cosmic Surface</h3>
+                    <code>--bg-surface</code>
+                    <span class="swatch-hex">#141340</span>
+                    <p>Superfícies de componentes.</p>
+                </article>
+
+                <article class="swatch swatch-light" data-reveal data-reveal-delay="120" data-copy="#f5f0e8" style="--c: #f5f0e8;">
+                    <div class="swatch-chip"></div>
+                    <h3>Starlight Primary</h3>
+                    <code>--text-primary</code>
+                    <span class="swatch-hex">#f5f0e8</span>
+                    <p>Texto principal e headings.</p>
+                </article>
+
+                <article class="swatch" data-reveal data-reveal-delay="160" data-copy="rgba(245, 240, 232, 0.72)" style="--c: rgba(245, 240, 232, 0.72);">
+                    <div class="swatch-chip"></div>
+                    <h3>Starlight Muted</h3>
+                    <code>--text-muted</code>
+                    <span class="swatch-hex">rgba(245,240,232,.72)</span>
+                    <p>Texto secundário e metadata.</p>
+                </article>
+
+                <article class="swatch swatch-light" data-reveal data-reveal-delay="200" data-copy="#ffd23f" style="--c: #ffd23f;">
+                    <div class="swatch-chip swatch-chip-glow"></div>
+                    <h3>Power Star</h3>
+                    <code>--accent-star</code>
+                    <span class="swatch-hex">#ffd23f</span>
+                    <p>Accent principal para CTA e foco.</p>
+                </article>
+
+                <article class="swatch" data-reveal data-reveal-delay="240" data-copy="rgba(255, 210, 63, 0.12)" style="--c: rgba(255, 210, 63, 0.12);">
+                    <div class="swatch-chip"></div>
+                    <h3>Power Star Dim</h3>
+                    <code>--accent-star-dim</code>
+                    <span class="swatch-hex">rgba(255,210,63,.12)</span>
+                    <p>Pills, badges e hover soft.</p>
+                </article>
+
+                <article class="swatch" data-reveal data-reveal-delay="280" data-copy="#5ce0d8" style="--c: #5ce0d8;">
+                    <div class="swatch-chip"></div>
+                    <h3>Cosmic Cyan</h3>
+                    <code>--cosmic-cyan</code>
+                    <span class="swatch-hex">#5ce0d8</span>
+                    <p>Destaques secundários e glows internos.</p>
+                </article>
+
+                <article class="swatch" data-reveal data-reveal-delay="320" data-copy="#6a3cbc" style="--c: #6a3cbc;">
+                    <div class="swatch-chip"></div>
+                    <h3>Cosmic Purple</h3>
+                    <code>--cosmic-purple</code>
+                    <span class="swatch-hex">#6a3cbc</span>
+                    <p>CTA secundário e overlays.</p>
+                </article>
+
+                <article class="swatch" data-reveal data-reveal-delay="360" data-copy="#c8508c" style="--c: #c8508c;">
+                    <div class="swatch-chip"></div>
+                    <h3>Cosmic Rose</h3>
+                    <code>--cosmic-rose</code>
+                    <span class="swatch-hex">#c8508c</span>
+                    <p>Acento narrativo complementar.</p>
+                </article>
+            </div>
+
+            <div class="copy-toast" id="copy-toast" role="status" aria-live="polite"></div>
+        </section>
+
+        <!-- 03 TIPOGRAFIA -->
+        <section id="tipografia" class="ds-section" aria-labelledby="tip-title">
+            <header class="ds-section-head" data-reveal>
+                <span class="ds-num">03</span>
+                <h2 id="tip-title" class="ds-section-title">Tipografia</h2>
+                <p class="ds-lede">
+                    Outfit, sans-serif. Hierarquia 700–900 em títulos, 400–500 em corpo.
+                    55–70 caracteres por linha, utility labels em caixa alta.
+                </p>
+            </header>
+
+            <div class="type-grid">
+                <article class="type-card type-display" data-reveal>
+                    <span class="type-tag">Display · 900</span>
+                    <p class="type-sample" style="font-size: clamp(3rem, 8vw, 6rem); font-weight: 900;">
+                        Galaxy
+                    </p>
+                    <span class="type-meta">clamp(3rem, 8vw, 6rem) · weight 900</span>
+                </article>
+
+                <article class="type-card" data-reveal data-reveal-delay="60">
+                    <span class="type-tag">H1 · 800</span>
+                    <p class="type-sample" style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 800;">
+                        Aventura intergaláctica
+                    </p>
+                    <span class="type-meta">clamp(2rem, 4vw, 3rem) · weight 800</span>
+                </article>
+
+                <article class="type-card" data-reveal data-reveal-delay="120">
+                    <span class="type-tag">H2 · 700</span>
+                    <p class="type-sample" style="font-size: 1.75rem; font-weight: 700;">
+                        Estrela cadente sobre o reino
+                    </p>
+                    <span class="type-meta">1.75rem · weight 700</span>
+                </article>
+
+                <article class="type-card" data-reveal data-reveal-delay="180">
+                    <span class="type-tag">Body · 500</span>
+                    <p class="type-sample" style="font-size: 1rem; font-weight: 500; max-width: 60ch; line-height: 1.6;">
+                        Em uma noite quieta no Reino do Cogumelo, uma chuva de estrelas se torna
+                        algo mais. Mario, Luigi e Peach embarcam em uma jornada por galáxias
+                        para deter Bowser e devolver a luz ao universo.
+                    </p>
+                    <span class="type-meta">55–70ch · line-height 1.6</span>
+                </article>
+
+                <article class="type-card" data-reveal data-reveal-delay="240">
+                    <span class="type-tag">Utility · UPPER</span>
+                    <p class="type-sample utility-sample">
+                        Nav · Microcopy · Caps
+                    </p>
+                    <span class="type-meta">0.75rem · letter-spacing .18em</span>
+                </article>
+            </div>
+        </section>
+
+        <!-- 04 COMPONENTES -->
+        <section id="componentes" class="ds-section" aria-labelledby="comp-title">
+            <header class="ds-section-head" data-reveal>
+                <span class="ds-num">04</span>
+                <h2 id="comp-title" class="ds-section-title">Componentes</h2>
+                <p class="ds-lede">
+                    Botões, cards, badges, countdown e hero. Separação por contraste tonal —
+                    sombras pesadas e glows externos agressivos são proibidos.
+                </p>
+            </header>
+
+            <div class="comp-grid">
+                <article class="comp-card" data-reveal>
+                    <span class="comp-tag">Buttons</span>
+                    <div class="comp-stage">
+                        <button type="button" class="ds-btn ds-btn-primary">Power Up</button>
+                        <button type="button" class="ds-btn ds-btn-secondary">Continuar</button>
+                        <button type="button" class="ds-btn ds-btn-ghost">Saiba mais</button>
+                    </div>
+                    <p class="comp-note">Primário em Power Star · secundário em Cosmic Purple · active comprime levemente.</p>
+                </article>
+
+                <article class="comp-card" data-reveal data-reveal-delay="80">
+                    <span class="comp-tag">Badges & Pills</span>
+                    <div class="comp-stage comp-stage-row">
+                        <span class="pill">★ Power Star</span>
+                        <span class="pill pill-cyan">◇ Cosmic Cyan</span>
+                        <span class="pill pill-rose">◎ Rose</span>
+                        <span class="badge">Em breve</span>
+                    </div>
+                    <p class="comp-note">Fundo Power Star Dim, texto de alto contraste.</p>
+                </article>
+
+                <article class="comp-card comp-countdown" data-reveal data-reveal-delay="160">
+                    <span class="comp-tag">Countdown / Metrics</span>
+                    <div class="comp-stage">
+                        <div class="countdown" id="ds-countdown" data-target="2026-12-25T00:00:00" aria-label="Estréia">
+                            <div class="countdown-cell">
+                                <span class="countdown-num" data-unit="days">128</span>
+                                <span class="countdown-label">Dias</span>
+                            </div>
+                            <span class="countdown-sep">:</span>
+                            <div class="countdown-cell">
+                                <span class="countdown-num" data-unit="hours">14</span>
+                                <span class="countdown-label">Horas</span>
+                            </div>
+                            <span class="countdown-sep">:</span>
+                            <div class="countdown-cell">
+                                <span class="countdown-num" data-unit="minutes">37</span>
+                                <span class="countdown-label">Min</span>
+                            </div>
+                            <span class="countdown-sep">:</span>
+                            <div class="countdown-cell">
+                                <span class="countdown-num" data-unit="seconds">52</span>
+                                <span class="countdown-label">Seg</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="comp-note">Dígitos com forte destaque · labels em Starlight Muted.</p>
+                </article>
+
+                <article class="comp-card comp-hero-mini" data-reveal data-reveal-delay="240">
+                    <span class="comp-tag">Hero block</span>
+                    <div class="comp-stage">
+                        <div class="mini-hero">
+                            <span class="mini-eyebrow">25 · DEZ · 2026</span>
+                            <h4>Estréia mundial</h4>
+                            <p>Composição espacial mantendo legibilidade acima dos efeitos.</p>
+                            <a href="#" class="ds-btn ds-btn-primary ds-btn-sm">Reservar</a>
+                            <div class="mini-orbit" aria-hidden="true">
+                                <span class="orbit orbit-1"></span>
+                                <span class="orbit orbit-2"></span>
+                                <span class="orbit orbit-star">★</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="comp-note">Composição assimétrica · contraste tonal sem sombras pesadas.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- 05 LAYOUT -->
+        <section id="layout" class="ds-section" aria-labelledby="lay-title">
+            <header class="ds-section-head" data-reveal>
+                <span class="ds-num">05</span>
+                <h2 id="lay-title" class="ds-section-title">Princípios de layout</h2>
+                <p class="ds-lede">
+                    Grid-first, contenção 1200–1400px, escala vertical fluida via clamp().
+                    Mobile colapsa para coluna única sem overflow horizontal.
+                </p>
+            </header>
+
+            <div class="layout-demo">
+                <article class="layout-frame layout-desktop" data-reveal>
+                    <span class="layout-label">Desktop · 1280px</span>
+                    <div class="layout-grid">
+                        <span class="lg lg-1">Hero</span>
+                        <span class="lg lg-2">Editorial</span>
+                        <span class="lg lg-3">Card</span>
+                        <span class="lg lg-4">Card</span>
+                        <span class="lg lg-5">Footer</span>
+                    </div>
+                </article>
+
+                <article class="layout-frame layout-mobile" data-reveal data-reveal-delay="120">
+                    <span class="layout-label">Mobile · 375px</span>
+                    <div class="layout-stack">
+                        <span class="lg">Hero</span>
+                        <span class="lg">Editorial</span>
+                        <span class="lg">Card</span>
+                        <span class="lg">Card</span>
+                        <span class="lg">Footer</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 06 MOVIMENTO -->
+        <section id="movimento" class="ds-section" aria-labelledby="mot-title">
+            <header class="ds-section-head" data-reveal>
+                <span class="ds-num">06</span>
+                <h2 id="mot-title" class="ds-section-title">Movimento & interação</h2>
+                <p class="ds-lede">
+                    Reveal em cascata, microinterações por opacidade, brilho interno e
+                    deslocamento sutil. Apenas <code>transform</code> e <code>opacity</code>.
+                </p>
+            </header>
+
+            <div class="motion-grid">
+                <article class="motion-card" data-reveal>
+                    <span class="comp-tag">--ease-out-expo</span>
+                    <div class="ease-stage" data-ease="expo">
+                        <span class="ease-ball"></span>
+                        <svg class="ease-curve" viewBox="0 0 100 100" aria-hidden="true" preserveAspectRatio="none">
+                            <path d="M 0 100 C 16 0, 30 0, 100 0" />
+                        </svg>
+                    </div>
+                    <code class="motion-code">cubic-bezier(0.16, 1, 0.3, 1)</code>
+                    <p class="motion-desc">Saída suave e veloz — ideal para entradas.</p>
+                </article>
+
+                <article class="motion-card" data-reveal data-reveal-delay="80">
+                    <span class="comp-tag">--ease-spring</span>
+                    <div class="ease-stage" data-ease="spring">
+                        <span class="ease-ball"></span>
+                        <svg class="ease-curve" viewBox="0 0 100 100" aria-hidden="true" preserveAspectRatio="none">
+                            <path d="M 0 100 C 34 -56, 64 -56, 100 0" />
+                        </svg>
+                    </div>
+                    <code class="motion-code">cubic-bezier(0.34, 1.56, 0.64, 1)</code>
+                    <p class="motion-desc">Elástico — overshoot leve para CTAs.</p>
+                </article>
+
+                <article class="motion-card cascade-card" data-reveal data-reveal-delay="160">
+                    <span class="comp-tag">Reveal cascata</span>
+                    <div class="cascade-stage">
+                        <span class="cascade-line"></span>
+                        <span class="cascade-line"></span>
+                        <span class="cascade-line"></span>
+                        <span class="cascade-line"></span>
+                    </div>
+                    <p class="motion-desc">Entradas com atraso curto, sequência rápida.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- 07 ANTI-PATTERNS -->
+        <section id="anti" class="ds-section" aria-labelledby="anti-title">
+            <header class="ds-section-head" data-reveal>
+                <span class="ds-num">07</span>
+                <h2 id="anti-title" class="ds-section-title">Anti-patterns</h2>
+                <p class="ds-lede">
+                    Banidos. Não negociáveis sem aprovação de branding.
+                </p>
+            </header>
+
+            <ul class="banned-list">
+                <li data-reveal><span class="banned-x" aria-hidden="true">×</span>Paleta inferida por screenshot quando existe token oficial</li>
+                <li data-reveal data-reveal-delay="60"><span class="banned-x" aria-hidden="true">×</span>Trocar <code>Outfit</code> por <code>Inter</code> sem aprovação de branding</li>
+                <li data-reveal data-reveal-delay="120"><span class="banned-x" aria-hidden="true">×</span>Usar <code>#FFFFFF</code> em vez de <code>--text-primary</code></li>
+                <li data-reveal data-reveal-delay="180"><span class="banned-x" aria-hidden="true">×</span>Cinzas fora da paleta oficial</li>
+                <li data-reveal data-reveal-delay="240"><span class="banned-x" aria-hidden="true">×</span>Glow externo agressivo em botões e cards</li>
+                <li data-reveal data-reveal-delay="300"><span class="banned-x" aria-hidden="true">×</span>Gradientes fora do conjunto cósmico + Power Star</li>
+            </ul>
+        </section>
+
+        <!-- 08 TOKENS -->
+        <section id="tokens" class="ds-section" aria-labelledby="tok-title">
+            <header class="ds-section-head" data-reveal>
+                <span class="ds-num">08</span>
+                <h2 id="tok-title" class="ds-section-title">Snippet canônico</h2>
+                <p class="ds-lede">
+                    Fonte única da verdade para tokens. Copie o bloco para o seu CSS.
+                </p>
+            </header>
+
+            <div class="token-block-wrap" data-reveal>
+                <button type="button" class="token-copy" id="token-copy">Copiar</button>
+                <pre class="token-block"><code id="token-code"><span class="tk-sel">:root</span> {
+  <span class="tk-prop">--bg-deep</span>: <span class="tk-val">#000000</span>;
+  <span class="tk-prop">--bg-mid</span>: <span class="tk-val">#0a0a1a</span>;
+  <span class="tk-prop">--bg-surface</span>: <span class="tk-val">#141340</span>;
+  <span class="tk-prop">--text-primary</span>: <span class="tk-val">#f5f0e8</span>;
+  <span class="tk-prop">--text-muted</span>: <span class="tk-val">rgba(245, 240, 232, 0.72)</span>;
+  <span class="tk-prop">--accent-star</span>: <span class="tk-val">#ffd23f</span>;
+  <span class="tk-prop">--accent-star-dim</span>: <span class="tk-val">rgba(255, 210, 63, 0.12)</span>;
+  <span class="tk-prop">--cosmic-cyan</span>: <span class="tk-val">#5ce0d8</span>;
+  <span class="tk-prop">--cosmic-purple</span>: <span class="tk-val">#6a3cbc</span>;
+  <span class="tk-prop">--cosmic-rose</span>: <span class="tk-val">#c8508c</span>;
+  <span class="tk-prop">--ease-out-expo</span>: <span class="tk-val">cubic-bezier(0.16, 1, 0.3, 1)</span>;
+  <span class="tk-prop">--ease-spring</span>: <span class="tk-val">cubic-bezier(0.34, 1.56, 0.64, 1)</span>;
+  <span class="tk-prop">--font-body</span>: <span class="tk-val">'Outfit', sans-serif</span>;
+}</code></pre>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="ds-footer">
+        <p>&copy; 2026 Super Mario Galaxy · Design System v1.0</p>
+        <p class="footer-muted">Cinematic · Cósmico · Star-led</p>
+    </footer>
+
+    <script src="js/design-system.js"></script>
+</body>
+
+</html>
