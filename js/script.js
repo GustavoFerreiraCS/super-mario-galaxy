@@ -1,12 +1,12 @@
 function initStarfield() {
   const canvas = document.getElementById('starfield');
   if (!canvas || !canvas.getContext) {
-    return { destroy() {} };
+    return { destroy() { } };
   }
 
   const ctx = canvas.getContext('2d', { alpha: true });
   if (!ctx) {
-    return { destroy() {} };
+    return { destroy() { } };
   }
 
   const root = document.documentElement;
@@ -210,9 +210,9 @@ function initStarfield() {
   const resizeObs =
     typeof ResizeObserver !== 'undefined'
       ? new ResizeObserver(() => {
-          syncCanvasDimensions();
-          paintFrame(performance.now());
-        })
+        syncCanvasDimensions();
+        paintFrame(performance.now());
+      })
       : null;
 
   function onWinResize() {
@@ -310,7 +310,56 @@ function initFloatingNav() {
   onScrollOrResize();
 }
 
+function initMarioScrollAnimations() {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+  const mario = document.querySelector('.hero__mario');
+  if (!mario) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: '#hero',
+        start: 'top top',
+        end: '+=100%',
+        scrub: true,
+      },
+    })
+    .to(mario, { y: '100vh', ease: 'none', duration: 1 }, 0)
+    .to(mario, { opacity: 0, ease: 'none', duration: 0.5 }, 0);
+}
+
+function initYoshiScrollAnimations() {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+  const yoshiWrap = document.querySelector('.hero__yoshi-wrap');
+  if (!yoshiWrap) return;
+
+  if (window.matchMedia('prefers-reduced-motion: reduce)').matches) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: '#hero',
+        start: 'top top',
+        end: '+=100%',
+        scrub: true,
+      },
+    })
+    .to(yoshiWrap, { y: '100vh', ease: 'none', duration: 1 }, 0)
+    .to(yoshiWrap, { opacity: 0, ease: 'none', duration: 0.5 }, 0);
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
   initFloatingNav();
   initStarfield();
+  initMarioScrollAnimations();
+  initYoshiScrollAnimations();
 });
