@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +8,12 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
     <canvas id="starfield" aria-hidden="true" role="presentation"></canvas>
 
@@ -55,9 +58,12 @@
                     <source src="assets/videos/planet-3d-alpha.webm" type="video/webm">
                     <source src="assets/videos/planet-3d-min.mp4" type="video/mp4">
                 </video>
-                <img class="hero__star hero__star--left" src="assets/images/estrela-min.webp" alt="" aria-hidden="true" width="72" height="72" decoding="async">
-                <img class="hero__star hero__star--right" src="assets/images/estrela-min.webp" alt="" aria-hidden="true" width="72" height="72" decoding="async">
-                <img class="hero__star hero__star--center" src="assets/images/estrela-min.webp" alt="" aria-hidden="true" width="56" height="56" decoding="async">
+                <img class="hero__star hero__star--left" src="assets/images/estrela-min.webp" alt="" aria-hidden="true"
+                    width="72" height="72" decoding="async">
+                <img class="hero__star hero__star--right" src="assets/images/estrela-min.webp" alt="" aria-hidden="true"
+                    width="72" height="72" decoding="async">
+                <img class="hero__star hero__star--center" src="assets/images/estrela-min.webp" alt=""
+                    aria-hidden="true" width="56" height="56" decoding="async">
             </div>
 
             <div class="hero__content-layer">
@@ -78,11 +84,45 @@
             </div>
         </section>
 
-        <section
-            id="personagens"
-            class="personagens"
-            aria-labelledby="personagens-heading"
-        >
+        <section id="marquee-personagens" class="marquee-personagens"
+            aria-label="Letreiro: Super Mario Galaxy, nos cinemas, aventura pelo cosmos e personagens">
+            <div class="marquee-personagens__viewport">
+                <div class="marquee-personagens__track">
+                    <div class="marquee-personagens__sequence">
+                        <span class="marquee-personagens__text">Super Mario Galaxy</span>
+                        <span class="marquee-personagens__sep" aria-hidden="true">/</span>
+                        <span class="marquee-personagens__text">Nos cinemas</span>
+                        <span class="marquee-personagens__sep" aria-hidden="true">/</span>
+                        <span class="marquee-personagens__text">Uma aventura pelo cosmos</span>
+                        <span class="marquee-personagens__sep" aria-hidden="true">/</span>
+                        <span class="marquee-personagens__text">Mario</span>
+                        <span class="marquee-personagens__sep" aria-hidden="true">/</span>
+                        <span class="marquee-personagens__text">Luigi</span>
+                        <span class="marquee-personagens__sep" aria-hidden="true">/</span>
+                        <span class="marquee-personagens__text">Rosalina</span>
+                        <span class="marquee-personagens__sep" aria-hidden="true">/</span>
+                        <span class="marquee-personagens__text">Peach</span>
+                        <span class="marquee-personagens__sep" aria-hidden="true">/</span>
+                    </div>
+                    <div class="marquee-personagens__sequence" aria-hidden="true">
+                        <span class="marquee-personagens__text">Super Mario Galaxy</span>
+                        <span class="marquee-personagens__sep">/</span>
+                        <span class="marquee-personagens__text">Nos cinemas</span>
+                        <span class="marquee-personagens__sep">/</span>
+                        <span class="marquee-personagens__text">Uma aventura pelo cosmos</span>
+                        <span class="marquee-personagens__sep">/</span>
+                        <span class="marquee-personagens__text">Mario</span>
+                        <span class="marquee-personagens__sep">/</span>
+                        <span class="marquee-personagens__text">Luigi</span>
+                        <span class="marquee-personagens__sep">/</span>
+                        <span class="marquee-personagens__text">Rosalina</span>
+                        <span class="marquee-personagens__sep">/</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="personagens" class="personagens" aria-labelledby="personagens-heading">
             <div class="personagens__header">
                 <p class="personagens__eyebrow">CONHEÇA O ELENCO</p>
                 <h2 id="personagens-heading" class="personagens__title">Personagens</h2>
@@ -117,46 +157,6 @@
             </div>
         </section>
 
-        <section
-            id="marquee-personagens"
-            class="marquee-personagens"
-            aria-label="Letreiro: Super Mario Galaxy, nos cinemas, aventura pelo cosmos e personagens"
-        >
-            <div class="marquee-personagens__viewport">
-                <div class="marquee-personagens__track">
-                    <div class="marquee-personagens__sequence">
-                        <span class="marquee-personagens__text">Super Mario Galaxy</span>
-                        <span class="marquee-personagens__sep" aria-hidden="true">/</span>
-                        <span class="marquee-personagens__text">Nos cinemas</span>
-                        <span class="marquee-personagens__sep" aria-hidden="true">/</span>
-                        <span class="marquee-personagens__text">Uma aventura pelo cosmos</span>
-                        <span class="marquee-personagens__sep" aria-hidden="true">/</span>
-                        <span class="marquee-personagens__text">Mario</span>
-                        <span class="marquee-personagens__sep" aria-hidden="true">/</span>
-                        <span class="marquee-personagens__text">Luigi</span>
-                        <span class="marquee-personagens__sep" aria-hidden="true">/</span>
-                        <span class="marquee-personagens__text">Rosalina</span>
-                        <span class="marquee-personagens__sep" aria-hidden="true">/</span>
-                        <span class="marquee-personagens__text">P</span>
-                        <span class="marquee-personagens__sep" aria-hidden="true">/</span>
-                    </div>
-                    <div class="marquee-personagens__sequence" aria-hidden="true">
-                        <span class="marquee-personagens__text">Super Mario Galaxy</span>
-                        <span class="marquee-personagens__sep">/</span>
-                        <span class="marquee-personagens__text">Nos cinemas</span>
-                        <span class="marquee-personagens__sep">/</span>
-                        <span class="marquee-personagens__text">Uma aventura pelo cosmos</span>
-                        <span class="marquee-personagens__sep">/</span>
-                        <span class="marquee-personagens__text">Mario</span>
-                        <span class="marquee-personagens__sep">/</span>
-                        <span class="marquee-personagens__text">Luigi</span>
-                        <span class="marquee-personagens__sep">/</span>
-                        <span class="marquee-personagens__text">Rosalina</span>
-                        <span class="marquee-personagens__sep">/</span>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <section id="trailers" class="section" aria-labelledby="trailers-heading">
             <h2 id="trailers-heading" class="section__title">Trailers</h2>
@@ -173,4 +173,5 @@
 
     <script src="js/script.js"></script>
 </body>
+
 </html>
