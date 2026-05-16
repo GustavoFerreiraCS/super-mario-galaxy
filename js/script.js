@@ -356,10 +356,178 @@ function initYoshiScrollAnimations() {
     .to(yoshiWrap, { opacity: 0, ease: 'none', duration: 0.5 }, 0);
 }
 
+function initHeroContentScrollAnimations() {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+  const content = document.querySelector('.hero__content-layer');
+  const scrollIndicator = document.querySelector('.hero__scroll-indicator');
+  if (!content) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#hero',
+      start: 'top top',
+      end: '+=100%',
+      scrub: true,
+      pin: content,
+      pinSpacing: false,
+    },
+  });
+
+  if (scrollIndicator) {
+    tl.to(scrollIndicator, { opacity: 0, ease: 'none', duration: 0.1 }, 0.1);
+  }
+
+  tl.to(content, { opacity: 0, ease: 'none', duration: 0.5 }, 0.5);
+}
+
+function colorVarToHex(varName) {
+  const el = document.createElement('span');
+  el.style.color = `var(${varName})`;
+  el.style.position = 'fixed';
+  el.style.left = '-9999px';
+  el.style.top = '0';
+  el.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(el);
+  const rgb = getComputedStyle(el).color;
+  document.body.removeChild(el);
+  const m = rgb.match(/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
+  if (!m) {
+    return '#f5f0e8';
+  }
+  const toH = (i) => Number(m[i]).toString(16).padStart(2, '0');
+  return `#${toH(1)}${toH(2)}${toH(3)}`;
+}
+
+function initPersonagensBg() {
+  const section = document.getElementById('personagens');
+  const parallaxEl = section?.querySelector('.personagens__particles-parallax');
+  if (!section || !parallaxEl || typeof particlesJS !== 'function') {
+    return;
+  }
+
+  const prefersReduce =
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const starColor = colorVarToHex('--text-primary');
+
+  function buildLayerConfig(count, sizePx, speed) {
+    return {
+      particles: {
+        number: {
+          value: count,
+          density: { enable: false },
+        },
+        color: {
+          value: starColor,
+        },
+        shape: {
+          type: 'circle',
+        },
+        opacity: {
+          value: 1,
+          random: false,
+          anim: { enable: false },
+        },
+        size: {
+          value: sizePx,
+          random: false,
+          anim: { enable: false },
+        },
+        line_linked: {
+          enable: false,
+        },
+        move: {
+          enable: !prefersReduce,
+          speed,
+          direction: 'bottom',
+          random: false,
+          straight: true,
+          out_mode: 'out',
+          bounce: false,
+        },
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: {
+          onhover: { enable: false, mode: 'grab' },
+          onclick: { enable: false, mode: 'push' },
+          resize: true,
+        },
+      },
+      retina_detect: true,
+    };
+  }
+
+  particlesJS('personagens-particles-1', buildLayerConfig(1000, 1, 0.48));
+  particlesJS('personagens-particles-2', buildLayerConfig(400, 2, 0.24));
+  particlesJS('personagens-particles-3', buildLayerConfig(200, 3, 0.16));
+
+  if (prefersReduce) {
+    return;
+  }
+
+  let px = 0;
+  let py = 0;
+  let vx = 0;
+  let vy = 0;
+  let tx = 0;
+  let ty = 0;
+  let springRafId = 0;
+
+  function tick() {
+    const dt = 1 / 60;
+    const stiffness = 50;
+    const damping = 20;
+    const ax = stiffness * (tx - px) - damping * vx;
+    const ay = stiffness * (ty - py) - damping * vy;
+    vx += ax * dt;
+    vy += ay * dt;
+    px += vx * dt;
+    py += vy * dt;
+    parallaxEl.style.transform = `translate3d(${px}px, ${py}px, 0)`;
+
+    const stillMoving =
+      Math.abs(vx) > 0.002 ||
+      Math.abs(vy) > 0.002 ||
+      Math.abs(tx - px) > 0.02 ||
+      Math.abs(ty - py) > 0.02;
+
+    if (stillMoving) {
+      springRafId = requestAnimationFrame(tick);
+    } else {
+      springRafId = 0;
+    }
+  }
+
+  function scheduleSpring() {
+    if (springRafId) {
+      return;
+    }
+    springRafId = requestAnimationFrame(tick);
+  }
+
+  section.addEventListener(
+    'mousemove',
+    (e) => {
+      tx = -(e.clientX - window.innerWidth * 0.5) * 0.05;
+      ty = -(e.clientY - window.innerHeight * 0.5) * 0.05;
+      scheduleSpring();
+    },
+    { passive: true },
+  );
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   initFloatingNav();
   initStarfield();
+  initPersonagensBg();
   initMarioScrollAnimations();
   initYoshiScrollAnimations();
+  initHeroContentScrollAnimations();
 });

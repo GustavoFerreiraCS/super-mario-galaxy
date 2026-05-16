@@ -607,10 +607,35 @@
     padding-block: clamp(var(--space-10), 5vw, var(--space-16));
     padding-inline: var(--space-gutter-x);
     overflow-x: clip;
-    background-color: var(--bg-mid);
+    background: radial-gradient(ellipse at bottom, var(--bg-mid) 0%, var(--bg-deep) 100%);
+  }
+
+  .personagens__particles-parallax {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    will-change: transform;
+  }
+
+  .personagens__particles-stack {
+    position: absolute;
+    inset: 0;
+  }
+
+  .personagens__particles-layer {
+    position: absolute;
+    inset: 0;
+  }
+
+  .personagens__particles-layer canvas {
+    display: block;
   }
 
   .personagens__header {
+    position: relative;
+    z-index: 1;
     flex-shrink: 0;
     max-width: min(100%, 52rem);
     margin-bottom: clamp(var(--space-6), 3.5vw, var(--space-12));
@@ -668,6 +693,7 @@
 
   .personagens__stage {
     position: relative;
+    z-index: 1;
     width: 100%;
     max-width: min(100%, 1400px);
     min-height: var(--personagens-stage-min-h);
