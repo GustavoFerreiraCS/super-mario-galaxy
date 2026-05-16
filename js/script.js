@@ -523,10 +523,246 @@ function initPersonagensBg() {
   );
 }
 
+/**
+ * Contador regressivo da estreia com flip 3D (docs/contador-animacao-spec.md).
+ * @param {number} diffMs
+ */
+function calcularRestanteFromDiff(diffMs) {
+  const diff = Math.max(0, diffMs);
+  return {
+    dia: Math.floor(diff / 86400000),
+    hor: Math.floor((diff % 86400000) / 3600000),
+    min: Math.floor((diff % 3600000) / 60000),
+    seg: Math.floor((diff % 60000) / 1000),
+  };
+}
+
+function initEstreiaCountdown() {
+  const card = document.querySelector('.estreia__countdown-card');
+  if (!card) return;
+
+  const targetRaw = card.dataset.targetDate;
+  if (!targetRaw) return;
+
+  const ALVO = new Date(targetRaw).getTime();
+  if (Number.isNaN(ALVO)) return;
+
+  const live = document.getElementById('estreia-countdown-live');
+  /** @type {{ dia: number; hor: number; min: number; seg: number } | null} */
+  let valorAtual = null;
+  let lastTickAt = Date.now();
+  let lastAriaMinuteBucket = /** @type {number | null} */ (null);
+  let ariaEndedAnnounced = false;
+  let timerId = 0;
+  /** @type {Record<string, number>} */
+  const flipTimers = {};
+
+  const prefersReduce =
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /** @type {readonly ['dia','hor','min','seg']} */
+  const UNITS = ['dia', 'hor', 'min', 'seg'];
+
+  function calcularRestante() {
+    return calcularRestanteFromDiff(ALVO - Date.now());
+  }
+
+  function alvoAtingido() {
+    return Date.now() >= ALVO;
+  }
+
+  /**
+   * @param {number} n
+   * @param {'dia'|'hor'|'min'|'seg'} unidade
+   */
+  function formatar(n, unidade) {
+    const z = alvoAtingido();
+    if (unidade === 'dia') {
+      return z ? '000' : String(n);
+    }
+    return z ? '00' : String(n).padStart(2, '0');
+  }
+
+  function updateAria(state) {
+    if (!live) return;
+    const diff = Math.max(0, ALVO - Date.now());
+
+    if (diff <= 0) {
+      if (!ariaEndedAnnounced) {
+        ariaEndedAnnounced = true;
+        live.textContent =
+          'A contagem regressiva terminou. Super Mario Galaxy: O Filme já estreou nos cinemas.';
+      }
+      return;
+    }
+
+    ariaEndedAnnounced = false;
+    const bucket = Math.floor(diff / 60000);
+    if (bucket === lastAriaMinuteBucket) return;
+    lastAriaMinuteBucket = bucket;
+
+    const { dia, hor, min, seg } = state;
+    live.textContent = `Faltam ${dia} dias, ${hor} horas, ${min} minutos e ${seg} segundos para a estreia nos cinemas.`;
+  }
+
+  /**
+   * @param {'dia'|'hor'|'min'|'seg'} unit
+   */
+  function getUnitEls(unit) {
+    const wrap = card.querySelector(`[data-unit="${unit}"]`);
+    if (!wrap) return null;
+    const fc = wrap.querySelector('.flip-card');
+    if (!fc) return null;
+    return {
+      card: fc,
+      top: fc.querySelector('.flip-card__top .flip-card__face'),
+      bottom: fc.querySelector('.flip-card__bottom .flip-card__face'),
+      topFlap: fc.querySelector('.flip-card__top-flap .flip-card__face'),
+      bottomFlap: fc.querySelector('.flip-card__bottom-flap .flip-card__face'),
+    };
+  }
+
+  /**
+   * @param {{ dia: number; hor: number; min: number; seg: number }} state
+   * @param {{ silent?: boolean }} [opts]
+   */
+  function pintarTudo(state, opts = {}) {
+    const silent = opts.silent === true;
+    for (let i = 0; i < UNITS.length; i++) {
+      const u = UNITS[i];
+      const els = getUnitEls(u);
+      if (!els || !els.top || !els.bottom || !els.topFlap || !els.bottomFlap) continue;
+      const t = formatar(state[u], u);
+      els.top.textContent = t;
+      els.bottom.textContent = t;
+      if (silent) {
+        els.topFlap.textContent = t;
+        els.bottomFlap.textContent = t;
+      }
+      els.card.classList.remove('is-flipping');
+    }
+  }
+
+  /**
+   * @param {'dia'|'hor'|'min'|'seg'} unit
+   * @param {number} antigo
+   * @param {number} novo
+   */
+  function flip(unit, antigo, novo) {
+    const els = getUnitEls(unit);
+    if (!els) return;
+
+    const fa = formatar(antigo, unit);
+    const fn = formatar(novo, unit);
+
+    if (prefersReduce || fa === fn) {
+      if (els.top) els.top.textContent = fn;
+      if (els.bottom) els.bottom.textContent = fn;
+      return;
+    }
+
+    if (els.topFlap) els.topFlap.textContent = fa;
+    if (els.bottomFlap) els.bottomFlap.textContent = fn;
+    if (els.top) els.top.textContent = fn;
+    if (els.bottom) els.bottom.textContent = fa;
+
+    window.clearTimeout(flipTimers[unit]);
+    els.card.classList.remove('is-flipping');
+    void els.card.offsetWidth;
+    els.card.classList.add('is-flipping');
+
+    flipTimers[unit] = window.setTimeout(() => {
+      if (els.bottom) els.bottom.textContent = fn;
+      els.card.classList.remove('is-flipping');
+      delete flipTimers[unit];
+    }, 600);
+  }
+
+  function travarZero() {
+    const zero = { dia: 0, hor: 0, min: 0, seg: 0 };
+    Object.keys(flipTimers).forEach((k) => {
+      window.clearTimeout(flipTimers[k]);
+      delete flipTimers[k];
+    });
+    pintarTudo(zero, { silent: true });
+    valorAtual = zero;
+    window.clearInterval(timerId);
+    timerId = 0;
+    updateAria(zero);
+    window.dispatchEvent(new CustomEvent('estreia-countdown-zero', { detail: { target: ALVO } }));
+  }
+
+  function sincronizarSemAnimacao() {
+    Object.keys(flipTimers).forEach((k) => {
+      window.clearTimeout(flipTimers[k]);
+      delete flipTimers[k];
+    });
+    const novo = calcularRestante();
+    pintarTudo(novo, { silent: true });
+    valorAtual = novo;
+  }
+
+  function tick() {
+    lastTickAt = Date.now();
+
+    if (alvoAtingido()) {
+      travarZero();
+      return;
+    }
+
+    const novo = calcularRestante();
+    if (valorAtual === null) {
+      valorAtual = novo;
+      pintarTudo(novo, { silent: true });
+      updateAria(novo);
+      return;
+    }
+
+    for (let i = 0; i < UNITS.length; i++) {
+      const u = UNITS[i];
+      if (novo[u] !== valorAtual[u]) {
+        flip(u, valorAtual[u], novo[u]);
+      }
+    }
+
+    valorAtual = novo;
+    updateAria(novo);
+  }
+
+  /** Render inicial sem flip */
+  const inicial = calcularRestante();
+  if (alvoAtingido()) {
+    travarZero();
+  } else {
+    pintarTudo(inicial, { silent: true });
+    valorAtual = inicial;
+    updateAria(inicial);
+    timerId = window.setInterval(tick, 1000);
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'visible') return;
+    const gap = Date.now() - lastTickAt;
+    if (gap > 2000) {
+      if (alvoAtingido()) {
+        travarZero();
+      } else {
+        sincronizarSemAnimacao();
+      }
+    }
+    if (!alvoAtingido() && !timerId) {
+      timerId = window.setInterval(tick, 1000);
+    }
+    lastTickAt = Date.now();
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initFloatingNav();
   initStarfield();
   initPersonagensBg();
+  initEstreiaCountdown();
   initMarioScrollAnimations();
   initYoshiScrollAnimations();
   initHeroContentScrollAnimations();

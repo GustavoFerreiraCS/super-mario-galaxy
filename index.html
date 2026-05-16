@@ -268,24 +268,44 @@
 
                     <div class="estreia__countdown-card" data-target-date="2026-12-25T00:00:00"
                         role="group" aria-label="Contagem regressiva para a estreia">
-                        <div class="estreia__countdown-unit">
-                            <span class="estreia__countdown-value" data-countdown="days">00</span>
-                            <span class="estreia__countdown-unit-label">Dias</span>
-                        </div>
-                        <span class="estreia__countdown-sep" aria-hidden="true">:</span>
-                        <div class="estreia__countdown-unit">
-                            <span class="estreia__countdown-value" data-countdown="hours">00</span>
-                            <span class="estreia__countdown-unit-label">Horas</span>
-                        </div>
-                        <span class="estreia__countdown-sep" aria-hidden="true">:</span>
-                        <div class="estreia__countdown-unit">
-                            <span class="estreia__countdown-value" data-countdown="minutes">00</span>
-                            <span class="estreia__countdown-unit-label">Min</span>
-                        </div>
-                        <span class="estreia__countdown-sep" aria-hidden="true">:</span>
-                        <div class="estreia__countdown-unit">
-                            <span class="estreia__countdown-value" data-countdown="seconds">00</span>
-                            <span class="estreia__countdown-unit-label">Seg</span>
+                        <p id="estreia-countdown-live" class="sr-only" aria-live="polite"></p>
+                        <div class="countdown" aria-hidden="true">
+                            <div class="flip-unit flip-unit--dia" data-unit="dia">
+                                <div class="flip-card">
+                                    <div class="flip-card__top"><span class="flip-card__face">0</span></div>
+                                    <div class="flip-card__bottom"><span class="flip-card__face">0</span></div>
+                                    <div class="flip-card__top-flap"><span class="flip-card__face">0</span></div>
+                                    <div class="flip-card__bottom-flap"><span class="flip-card__face">0</span></div>
+                                </div>
+                                <span class="flip-unit__label">Dias</span>
+                            </div>
+                            <div class="flip-unit" data-unit="hor">
+                                <div class="flip-card">
+                                    <div class="flip-card__top"><span class="flip-card__face">00</span></div>
+                                    <div class="flip-card__bottom"><span class="flip-card__face">00</span></div>
+                                    <div class="flip-card__top-flap"><span class="flip-card__face">00</span></div>
+                                    <div class="flip-card__bottom-flap"><span class="flip-card__face">00</span></div>
+                                </div>
+                                <span class="flip-unit__label">Horas</span>
+                            </div>
+                            <div class="flip-unit" data-unit="min">
+                                <div class="flip-card">
+                                    <div class="flip-card__top"><span class="flip-card__face">00</span></div>
+                                    <div class="flip-card__bottom"><span class="flip-card__face">00</span></div>
+                                    <div class="flip-card__top-flap"><span class="flip-card__face">00</span></div>
+                                    <div class="flip-card__bottom-flap"><span class="flip-card__face">00</span></div>
+                                </div>
+                                <span class="flip-unit__label">Min</span>
+                            </div>
+                            <div class="flip-unit" data-unit="seg">
+                                <div class="flip-card">
+                                    <div class="flip-card__top"><span class="flip-card__face">00</span></div>
+                                    <div class="flip-card__bottom"><span class="flip-card__face">00</span></div>
+                                    <div class="flip-card__top-flap"><span class="flip-card__face">00</span></div>
+                                    <div class="flip-card__bottom-flap"><span class="flip-card__face">00</span></div>
+                                </div>
+                                <span class="flip-unit__label">Seg</span>
+                            </div>
                         </div>
                     </div>
 
