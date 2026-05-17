@@ -767,3 +767,43 @@ document.addEventListener('DOMContentLoaded', () => {
   initYoshiScrollAnimations();
   initHeroContentScrollAnimations();
 });
+
+
+(function () {
+  const track = document.querySelector('.trailers__track');
+  const dots = document.querySelectorAll('.trailers__dot');
+  const btnPrev = document.querySelector('.trailers__arrow--prev');
+  const btnNext = document.querySelector('.trailers__arrow--next');
+  const total = dots.length;
+
+  // Slide inicial conforme spec: índice 1 (segundo trailer)
+  let current = 1;
+
+  function goTo(index) {
+    current = index;
+    track.style.transform = `translateX(-${current * 100}%)`;
+
+    dots.forEach((dot, i) => {
+      const active = i === current;
+      dot.classList.toggle('is-active', active);
+      dot.setAttribute('aria-selected', String(active));
+      dot.setAttribute('aria-current', active ? 'true' : 'false');
+    });
+
+    btnPrev.disabled = current === 0;
+    btnNext.disabled = current === total - 1;
+  }
+
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+  btnPrev.addEventListener('click', () => { if (current > 0) goTo(current - 1); });
+  btnNext.addEventListener('click', () => { if (current < total - 1) goTo(current + 1); });
+
+  // Navegação por teclado ←/→ quando o carrossel tem foco
+  document.querySelector('.trailers__carousel').addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); if (current > 0) goTo(current - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); if (current < total - 1) goTo(current + 1); }
+  });
+
+  // Estado inicial
+  goTo(current);
+})();
