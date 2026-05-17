@@ -1441,8 +1441,8 @@
   /* Contador flip (docs/contador-animacao-spec) — tokens DESIGN.md */
   .estreia__countdown-card {
     --flip-h: 7.5rem;
-    --flip-num: clamp(2.25rem, 1.35rem + 3.5vw, 4rem);
-    --flip-w: min(6.875rem, 22vw);
+    --flip-num: clamp(2rem, 1.2rem + 3vw, 3.25rem);
+    --flip-w: min(6.5rem, 28vw);
     --flip-radius: 0.75rem;
     --flip-face: var(--text-primary);
     --flip-label-col: rgba(245, 240, 232, 0.5);
@@ -1494,7 +1494,7 @@
   }
 
   .estreia__countdown-card .flip-unit--dia {
-    --flip-w: min(5rem, 24vw);
+    --flip-w: min(6.5rem, 28vw);
   }
 
   .estreia__countdown-card .flip-card {
